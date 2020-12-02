@@ -1,0 +1,715 @@
+SoapUI Automation --- Learning Nov-2020
+--------------------------------------------
+
+SoapUI Beginner Tutorial 1 - What is SoapUI | SoapUi Introduction | Getting Started
+
+Free tutorials - https://automationstepbystep.com/
+Today we will learn:
+1. What is SoapUI
+2. Why to use SoapUI
+3. How to Download and Install SoapUI
+4. Difference between SoapUI Open Source and Paid versions
+
+
+What is SoapUI
+------------------------
+API Testing Tool
+For manual and automation testing of SOAP and REST APIs
+
+
+Why to use SoapUI
+------------------------------
+1. To create quick and efficient API tests
+2. To create API functional, performance and security tests
+3. To create API Testing automation framework
+
+
+Step 1 : Download SoapUI from - https://www.soapui.org/downloads/late...
+          or https://www.soapui.org/downloads/latest-release/
+
+Step 2 : Install SoapUI
+
+
+
+SoapUI Beginner Tutorial 2 - SoapUI Features and GUI
+------------------------------------------------------
+
+If thomas bayer is NOT working, you can try REST API from https://reqres.in/ OR you can also create your local REST API like this https://youtu.be/7vx0RIwHVzg
+FREE tutorials - https://automationstepbystep.com/
+Today we will learn:
+1. GUI components of SoapUI
+2. Menu and Icons
+3. Configurations
+
+Cross-platform tool
+Built entirely over Java platform
+uses Swing for GUI
+
+Project - Test Suite - Test Case - Test Step
+
+Project Navigator
+Request Editor
+Response Editor
+
+Sample REST URI - http://thomas-bayer.com/sqlrest/CUSTO...
+or http://thomas-bayer.com/sqlrest/CUSTOMER/10
+___________________________________________________________________
+
+
+SoapUI Beginner Tutorial 3 - First SoapUI Project | SOAP | How to create Project in SoapUI
+----------------------------------------------------------------------------------
+
+
+more about Raghav - https://automationstepbystep.com/
+Today we will learn:
+1. How to create a SOAP API Project
+2. How to add WSDL
+3. How to create Test Suite - Test Cases
+4. How to add Assertions
+5. Run Test Step - Test Case - Test Suite
+6. How to run in sequence and in parallel
+7. How to create API Documentation
+
+WSDL - http://webservices.oorsprong.org/webs... or
+ http://webservices.oorsprong.org/websamples.countryinfo/CountryInfoService.wso?wsdl
+
+SoapUI Beginner Tutorial 4 - First SoapUI Project | REST
+----------------------------------------------------------
+Today we will learn:
+
+1. Create a REST Project
+2. Add a REST request 
+3. How to add request parameters
+4. Create a Test Case
+5. Add assertions
+6. Run and Validate
+
+
+URI - Uniform Resource Identifier
+REST Endpoints - https://restcountries.eu/
+
+
+SoapUI Beginner Tutorial 5 - How to use PROPERTIES
+-------------------------------------------------
+Today we will learn:
+
+1. What is property in soapui
+2. Why do we use it
+3. How to create properties at different levels
+4. How to refer properties
+
+Properties can be used as variables to store values that can be referred in testing
+
+Properties can be accessed at following levels:
+Project       -  ${#Project#PropertyName}
+TestSuite   -  ${#TestSuite#PropertyName}
+TestCase   -  ${#TestCase#PropertyName}
+TestStep    -  ${TestStepName#PropertyName}
+
+System   -    ${#System#PropertyName}
+Env        -     ${#Env#PropertyName}
+Global    -     ${#Global#PropertyName} 
+
+
+SoapUI Beginner Tutorial 6 - How to Get and Set Properties through GROOVY scripts
+--------------------------------------------------------------------------------
+website - https://automationstepbystep.com/
+Today we will learn:
+1. How to get property
+2. How to set property
+3. How to add property
+4. How to remove property
+5. How to loop through all properties
+
+References
+https://www.soapui.org/scripting-prop...
+or https://www.soapui.org/docs/scripting-and-properties/tips-tricks/
+Notes
+
+// Get and Set Property
+
+//Project
+testRunner.testCase.testSuite.project.getPropertyValue("Name")
+testRunner.testCase.testSuite.project.setPropertyValue("Name","I am in Project")
+
+//TestSuite
+testRunner.testCase.testSuite.getPropertyValue("Name")
+testRunner.testCase.testSuite.setPropertyValue("Name","I am in TestSuite")
+
+//TestCase
+testRunner.testCase.getPropertyValue("Name")
+testRunner.testCase.setPropertyValue("Name","I am in TestCase")
+
+//TestStep
+testRunner.testCase.getTestStepByName("CountryCodes").getPropertyValue("Name")
+testRunner.testCase.getTestStepByName("CountryCodes").setPropertyValue("Name","I am in Test Step")
+
+//Global
+com.eviware.soapui.SoapUI.globalProperties.getPropertyValue( "Name")
+com.eviware.soapui.SoapUI.globalProperties.setPropertyValue( "Name","I am in Global Prop" )
+
+
+// Add Property
+testRunner.testCase.testSuite.project.addProperty("DOB")
+
+// Remove property
+//Project
+testRunner.testCase.testSuite.project.removeProperty("Name");
+//TestSuite
+testRunner.testCase.testSuite.removeProperty("Name")
+
+// Loop through properties
+
+testRunner.testCase.properties.each
+{
+ key,value -
+ log.info (testRunner.testCase.getPropertyValue(key))
+ //log.info (key+" - "+value)
+}
+
+SoapUI Beginner Tutorial 7 - How to do Property Transfer | Values Transfer
+----------------------------------------------------------------------
+Today we will learn:
+1. How to send values from the response of one api to request of another api
+
+
+SoapUI Beginner Tutorial 8 - GROOVY Scripting in SoapUI | Getting Started
+------------------------------------------------------------------------
+Today we will learn:
+-----------------------------
+1. What is Groovy
+2. How to add groovy scripts in SoapUI
+3. How to do basic coding in groovy in SoapUI
+4. Basic Object Oriented Programming. (Classes and Objects)
+
+References
+https://en.wikipedia.org/wiki/Apache_... or https://en.wikipedia.org/wiki/Apache_Groovy
+https://www.soapui.org/apidocs/com/ev...
+
+Code Snippets
+=============
+import java.io.*;
+
+log.info ("        Hello World ...  ");
+
+int a = 10 ;
+int b = 20 ;
+int c = a+b ;
+log.info ("   Result is : "+c) ;
+
+// this is a single line comment
+
+/*
+ * This is
+ * multiline comment
+ */
+
+ //log
+ //context
+ //testRunner
+
+log.info testRunner.metaClass.methods*.name.unique().sort()
+
+
+
+======================
+
+class Hello{
+
+ def log;
+ def context;
+ def testRunner;
+
+ def Hello(log, context, testRunner){
+  this.log = log
+  this.context = context
+  this.testRunner = testRunner
+ }
+
+ def sayHello(String name){
+  log.info ("   Hello "+name);
+ }
+ 
+}
+
+context.setProperty("Hello", new Hello(log,context,testRunner))
+
+
+========================
+
+def testStep = testRunner.testCase.getTestStepByName("Hello")
+
+testStep.run(testRunner, context)
+
+context.Hello.sayHello("Raghav")
+
+============================
+
+project = testRunner.testCase.testSuite.project ;
+ tcase = project.testSuites["TestSuite3"].testCases["TestCase1"] ; 
+ hello = tcase.getTestStepByName("Hello");
+
+hello.run(testRunner, context)
+
+context.Hello.sayHello("Raghav")
+
+
+project = testRunner.testCase.testSuite.project ;
+ tcase = project.testSuites["TestSuite"].testCases["TestCaseName"] ; 
+ hello = tcase.getTestStepByName("Hello");
+
+
+log.info testRunner.metaClass.methods*.name.unique().sort()
+
+context.setProperty("Hello", new Hello(log,context,testRunner))
+
+
+
+
+def hello = testRunner.testCase.getTestStepByName("Hello");
+
+hello.run(testRunner, context)
+
+def ref = context.Hello;
+ref.printHello("Raghav");
+
+
+==============================================
+SoapUI Beginner Tutorial 9 - How to run a Request | from GUI, Groovy and Command Line
+---------------------------------------------------------------------------------
+more about Raghav - https://automationstepbystep.com/
+Today we will learn:
+1. How to run a request or step from GUI
+2. How to run a request or step from Groovy
+3. Options for command line runs
+
+Useful TIPS
+//Groovy - run request from same TestCase
+def status = testRunner.runTestStepByName("TestStepName")
+def result = status.getStatus().toString();
+log.info ("   ---- "+result)
+
+//Groovy - run request from another TestCase or TestSuite
+project = testRunner.testCase.testSuite.project ;
+tcase = project.testSuites["TestSuiteName"].testCases["TestCaseName"] ; 
+tstep = tcase.getTestStepByName("TestStepName");
+def status = tstep.run(testRunner, context)
+def result = status.getStatus().toString();
+log.info ("   ----   "+result)
+
+https://www.soapui.org/docs/functiona... or
+https://www.soapui.org/docs/functional-testing/teststep-reference/run-testcase/
+
+SoapUI Beginner Tutorial 10 - How to run a Test Case - from GUI, Groovy and Command Line
+----------------------------------------------------------------------------------
+Today we will learn:
+-------------------------
+1. How to run a Test Case from GUI
+2. How to run a Test Case from Groovy
+3. How to run a Test Case from CommandLine 
+
+Useful TIPS
+---------------
+How to get list of all TCs in a test suite
+Get TestCaseName - testRunner.testCase.name
+
+
+
+Notes:
+groovy code to run test case
+=====================
+def tCase = testRunner.testCase.testSuite.testCases["TestCaseName"]
+runner = tCase.run(new com.eviware.soapui.support.types.StringToObjectMap(), false);
+
+groovy code to loop test cases in a test suite
+==================================
+def testCases = context.testCase.testSuite.getTestCaseList() 
+testCases.each{
+log.info(it.name)
+}
+
+
+command line run
+==============
+cd C:\Program Files\SmartBear\SoapUI-5.4.0\bin\
+testrunner.bat -sTestSuite3 -cTestCase2 "C:\Users\Raghav Pal\OneDrive\Projects\SoapUIProjects\CountryInfoService-soapui-project1.xml"
+
+_______________________________________________________
+
+SoapUI Beginner Tutorial 11 - How to run a Test Suite - From GUI, Groovy and Command Line
+-----------------------------------------------------------------------------------
+Today we will learn:
+1. How to run a TestSuite from GUI
+2. How to run a TestSuite from Groovy
+3. How to run a TestSuite from CommandLine
+
+Groovy script
+-------------------
+def suite = context.testCase.testSuite.project.testSuites["TestSuiteName"]
+suite.run(null,false)
+// null can be replaced with : new com.eviware.soapui.support.types.StringToObjectMap()
+log.info ("   ===   "+suite.getName().toString()+" - Executed successfully")
+
+
+command line run
+----------------------------
+cd  C:\Program Files\SmartBear\SoapUI-5.4.0\bin\
+testrunner.bat -sTestSuite2 -j -f"C:\Users\Raghav Pal\Desktop" "C:\Users\Raghav Pal\OneDrive\Projects\SoapUIProjects\CountryInfoService-soapui-project1.xml"
+
+SoapUI Beginner Tutorial 12 - How to run PROJECT - From GUI, Groovy and Command Line
+------------------------------------------------------------------------
+Today we will learn:
+1. How to run a Project from GUI
+2. How to run a Project from Groovy
+3. How to run a Project from CommandLine
+
+groovy script
+------------------
+def projectName=testRunner.getTestCase().getTestSuite().getProject().getWorkspace().getProjectByName("REST Project 1")
+projectName.run(null,true)
+//projectName.run(new com.eviware.soapui.support.types.StringToObjectMap(), false)
+
+command line run
+--------------------------
+cd C:\Program Files\SmartBear\SoapUI-5.4.0\bin\
+testrunner.bat -j -f"C:\Users\Raghav Pal\Desktop" "C:\Users\Raghav Pal\OneDrive\Projects\SoapUIProjects\CountryInfoService-soapui-project1.xml"
+
+SoapUI Beginner Tutorial 13 - How to check LOGS in SoapUI | Troubleshooting tips in SoapUI
+----------------------------------------------------------------------------------------
+Today we will learn:
+--------------------------
+1. Different types of logs in SoapUI
+2. How to view soapui general and error log files
+
+
+SoapUI Beginner Tutorial 14 - How to create SetUp and TearDown in SoapUI
+--------------------------------------------------------------------
+Today we will learn:
+--------------------------
+1. What is SetUp and TearDown
+2. Why to use it
+3. How to use SetUp and TearDown scripts in SoapUI
+4. How to set SetUp and TearDown with groovy scripts
+
+Setup - runs before running the element in context
+Teardown - runs after running the element in context
+
+
+groovy code to set and get setup and teardown scripts 
+--------------------------------------------------------------------------
+testRunner.testCase.testSuite.project.getTestSuiteByName('TestSuite1').getTestCaseByName('TestCase1').setSetupScript('log.info "setup"')
+testRunner.testCase.testSuite.project.getTestSuiteByName('TestSuite1').getTestCaseByName('TestCase1').setTearDownScript('log.info "teardown"')
+
+log.info ("  --  "+testRunner.testCase.getSetupScript());
+log.info ("  --  "+testRunner.testCase.getTearDownScript());
+
+
+groovy code can be given at project load script to load setup and teardown scritps from file
+--------------------------------------------------------------------------------------------------------------------------
+def su = new File("setup.txt").text
+def td  = new File("teardown.txt").text
+
+project.getTestSuiteList().each { testSuite -
+ testSuite.getTestCaseList().each { testCase -
+  testCase.setSetupScript(su)
+  testCase.setTearDownScript(td)
+ }
+}
+
+SoapUI Beginner Tutorial 15 - What are Assertions | How to create assertions in SoapUI
+-----------------------------------------------------------------------------------
+
+Today we will learn:
+
+1. What are assertions
+2. Why do we add assertions
+3. Diff types of assertions in SoapUI
+
+
+ASSERTIONS - validations on the response
+
+expected vs actual
+
+REST - https://restcountries.eu/
+SOAP - http://webservices.oorsprong.org/webs...
+or http://webservices.oorsprong.org/websamples.countryinfo/CountryInfoService.wso?WSDL
+
+SoapUI Beginner Tutorial 16 - How to add ASSERTIONS | XPath | XQuery | Json Assertions in SoapUI
+----------------------------------------------------------------------------------------
+
+Today we will learn
+
+How to add different assertions in SoapUI
+
+Contains 
+XPath Match
+XQuery Match
+Compliance
+JSON Path assertions
+
+SLA - SERVICE LEVEL AGREEMENT
+
+
+JSON PATH FINDER - chrome-extension://bankcpekihijigplompggpdolehhnale/index.html
+
+SoapUI Beginner Tutorial 17 - How to create Script Assertions
+------------------------------------------------------------
+Today we will learn:
+
+1. What is Script Assertion
+2. How to add Script Assertion
+3. Different assertion scripts for xml and json messages
+4. Tips and Tricks
+  
+
+Script assertion works on the last reponse received in soapui
+works with messageExchange object
+(messageExchange object stores all the details of the last request and response)
+
+
+Script Assertion samples
+=====================
+
+//check response time
+assert messageExchange.timeTaken  4000
+
+//check for Endpoint
+ log.info messageExchange.getEndpoint() 
+
+//check for TimeTaken
+ log.info messageExchange.getTimeTaken()  
+
+//check for header
+log.info (messageExchange.responseHeaders["Content-Length"])
+assert messageExchange.responseHeaders["Content-Length"] != null
+
+//check attachments
+assert messageExchange.responseAttachments.length == 0
+log.info (messageExchange.responseAttachments.length)
+
+//validate response nodes
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+def requsetHolder = groovyUtils.getXmlHolder( messageExchange.requestContent )
+def responseHolder = groovyUtils.getXmlHolder( messageExchange.responseContent )
+def refNum = responseHolder.getNodeValue("//m:CountryCurrencyResult/m:sName")
+assert responseHolder.getNodeValue("//m:CountryCurrencyResult/m:sName") == "Rupees"
+
+//to get response
+def resp = messageExchange.responseContentAsXml.toString()
+
+
+For JSON response
+-------------------------------
+
+//get json response
+import groovy.json.JsonSlurper
+def responseMessage = messageExchange.response.responseContent
+def json = new JsonSlurper().parseText(responseMessage)
+
+//assert node values
+log.info json.name
+assert json.capital.toString() != null
+assert json.name.toString() == "[Taiwan]"
+
+testStepName = messageExchange.modelItem.testStep.name//to get the Test Step Name
+log.info testStepName
+xmlHold = messageExchange.responseContentAsXml.toString()  //to store the response as Xml string
+
+SoapUI Beginner Tutorial 18 - How to run SoapUI tests on Jenkins | SoapUI with Jenkins
+---------------------------------------------------------------------------------
+Today we will learn:
+
+1. How to get Jenkins
+2. How to add SoapUI commands in Jenkins
+3. How to run SoapUI tests from Jenkins
+
+
+Step 1 : Open SoapUI and goto the test case
+
+Step 2 : Right click and select Launch Test Runner
+
+Step 3 : Run from Test Runner and copy the commands
+
+cd C:\Program Files\SmartBear\SoapUI-5.4.0\bin\
+testrunner.bat -sTestSuite1 -cAssertions "C:\Users\Raghav Pal\OneDrive\Projects\SoapUIProjects\REST-Project-1-soapui-project.xml"
+
+
+Step 4 : Get Jenkins on your system
+
+Step 5 : Run jenkins - java -jar jenkins.war --httpPort=xxxx
+
+Step 6 : Create a new job and add details
+
+Step 7 : Run the job and validate results
+
+
+
+
+References:
+Jenkins download - https://jenkins.io/download/
+
+
+cd C:\Program Files\SmartBear\SoapUI-5.4.0\bin\
+testrunner.bat -sTestSuite1 -cAssertions "C:\Users\Raghav Pal\OneDrive\Projects\SoapUIProjects\REST-Project-1-soapui-project.xml"
+
+
+SoapUI Beginner Tutorial 19 - How to create API MONITORS | AlertSite
+----------------------------------------------------------------------
+Today we will learn:
+
+1. How to setup API Monitors
+2. How to Monitor APIs in SoapUI
+
+
+What is API Monitoring:
+Checking of your APIs at regular interval for 
+Availability
+Correctness
+Performance
+
+Step 1 : Open SoapUI - Right click on Project and Select - Monitor APIs
+
+Step 2 : Connect to AlertSite (SignUp | SignIn)
+
+Step 3 : Create Monitors
+
+Step 4 : Add APIs to monitor and view in AlertSite
+
+References :
+https://smartbear.com/lp/alertsite/fr...
+or https://smartbear.com/lp/alertsite/free-api-monitoring/%e2%80%8b/
+
+SoapUI Beginner Tutorial 20 - How to add SoapUI Projects to GIT (version control system)
+------------------------------------------------------------------------------
+Today we will learn:
+
+1. Install git on windows
+2. Create GitHub account
+3. Add SoapUI Project on Git
+4. Add, commit, push Changes
+5. Remove project from Git
+
+Step 1 : Download and Install Git
+
+Step 2 : Create GitHub account
+
+Step 3 : Add SoapUI Project to Git
+ Goto Command Prompt
+ Goto location of SoapUI Project
+ git init
+ git status
+ git add .
+ git commit -m "commit message"
+ git push -u url master
+
+Step 4 : Validate changes are pushed to repository
+
+Step 5 : Remove project from Git
+
+
+References:
+https://git-scm.com/download
+https://help.github.com/articles/sett...
+or https://docs.github.com/en/free-pro-team@latest/github/using-git/setting-your-username-in-git
+
+21.SoapUI Open Source API request response chaining with JSON
+--------------------------------------------------------------
+2 Ways
+1st way : Using Property Transfer step
+
+Step 1 : Add the api requests in a test case
+
+Step 2 : Add a property transfer step
+
+Step 3 : Create a new property transfer
+   Provide source and target details
+
+Step 4 : Provide json path in source and target
+References
+http://jsonpathfinder.com/
+Chrome extension : Json path finder
+
+Step 5 : Run and check the results
+
+2nd way : Using Groovy script
+
+JsonSlurper
+https://groovy-lang.org/json.html
+
+def resp = testRunner.testCase.getTestStepByName('ListUsers').getPropertyValue('response')
+
+def jsonSlurper = new groovy.json.JsonSlurper()
+def object = jsonSlurper.parseText(resp)
+
+def value = object.data[5].first_name
+
+testRunner.testCase.getTestStepByName('MyProperties').setPropertyValue('user',value)
+
+22.SoapUI open source - How to extract XML response and use in next API request
+------------------------------------------------------------------------------
+SoapUI request-response chaining
+2 Ways
+1st way : Property Transfer step
+
+Step 1 : Add the api requests in a test case
+
+Step 2 : Add property transfer step
+
+Step 3 : Create a new property transfer
+
+Step 4 : Provide source and target details
+
+Step 5 : Click on ns: and provide xpath for source and target
+
+2nd way : Groovy script
+
+def response = 
+testRunner.testCase.getTestStepByName('Add').getPropertyValue("response")
+
+def object = new XmlSlurper().parseText(response)
+
+def value = object.text()
+
+log.info '   value is : '+value
+
+testRunner.testCase.getTestStepByName('MyProperties').setPropertyValue('addResult', value)
+
+${MyProperties#addResult}
+
+References
+http://www.dneonline.com/calculator.a... or http://www.dneonline.com/calculator.asmx?WSDL
+Xml toolbox - http://xmltoolbox.appspot.com/xpath_g... or http://xmltoolbox.appspot.com/xpath_generator.html
+Xml grid - https://xmlgrid.net/xpath.html or https://xmlgrid.net/xpath.html
+xPather - http://xpather.com/ 
+Groovy XML Slurper - http://www.groovy-lang.org/processing... or http://www.groovy-lang.org/processing-xml.html
+
+23.How to create CSV reports in SoapUI Open Source
+-----------------------------------------------------
+
+Step 1: In the existing SoapUI project, create a new Test Suite with the name: Library
+Step 2: Disable the Library test suite to avoid its execution along with the project
+Step 3: Create a new test case with the name: Reporting_Utility inside the test suite
+Step 4: Add Groovy Script Step with the name: GenerateCSVReport in the test case
+References: https://dzone.com/articles/how-to-ach...
+or https://dzone.com/articles/how-to-achieve-csv-reporting-in-soapui-open-source-1
+Step 5: Open the “TearDown Script” section for each test case from the test case window
+Step 6: In the opened “TearDown Script” section, add code to call GenerateCSVReport
+Step 7: Execute the SoapUI Project/Test Suite/Test Case
+
+
+
+
+***************************Happy Learning*******************************************
+
+
+
+
+
+
+
+
+
+
+
+
+
